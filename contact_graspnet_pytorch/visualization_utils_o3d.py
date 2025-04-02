@@ -1,16 +1,11 @@
 import os
 import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
 
 import open3d as o3d
 
 import matplotlib.pyplot as plt
-from matplotlib import cm
 
-from scipy.spatial.transform import Rotation as R
-
-import mesh_utils
+from contact_graspnet_pytorch import mesh_utils
 
 
 # To fix GLIB open3d error:
