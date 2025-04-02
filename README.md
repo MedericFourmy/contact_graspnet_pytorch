@@ -1,3 +1,5 @@
+:trident: This fork is intended to solve a few issues of [contact graspnet pytorch port](https://github.com/elchun/contact_graspnet_pytorch).
+
 # Contact-GraspNet Pytorch
 
 This is a pytorch implementation of Contact-GraspNet. The original tensorflow
