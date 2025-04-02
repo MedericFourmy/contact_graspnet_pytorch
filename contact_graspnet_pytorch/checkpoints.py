@@ -16,8 +16,6 @@ class CheckpointIO(object):
     def __init__(self, checkpoint_dir='./chkpts', **kwargs):
         self.module_dict = kwargs
         self.checkpoint_dir = checkpoint_dir
-        if not os.path.exists(checkpoint_dir):
-            os.makedirs(checkpoint_dir)
 
     def register_modules(self, **kwargs):
         ''' Registers modules in current module dictionary.
@@ -31,6 +29,8 @@ class CheckpointIO(object):
             filename (str): name of output file
         '''
         if not os.path.isabs(filename):
+            if not os.path.exists(self.checkpoint_dir):
+                os.makedirs(self.checkpoint_dir)
             filename = os.path.join(self.checkpoint_dir, filename)
 
         outdict = kwargs
@@ -62,11 +62,12 @@ class CheckpointIO(object):
         if os.path.exists(filename):
             print(filename)
             print('=> Loading checkpoint from local file...')
-            state_dict = torch.load(filename)
+            # TODO: weights_only=True not possible atm
+            state_dict = torch.load(filename, weights_only=False)
             scalars = self.parse_state_dict(state_dict)
             return scalars
         else:
-            raise FileExistsError
+            raise FileExistsError(f"Checkpoint does not exist: {filename}")
 
     def load_url(self, url):
         '''Load a module dictionary from url.
